@@ -1,0 +1,940 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReMarket - My Account</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #176b5b;
+            --primary-dark: #105347;
+            --primary-light: #e8f5f0;
+            --text: #172b28;
+            --muted: #71817d;
+            --background: #f6f8f7;
+            --white: #ffffff;
+            --border: #e5ece9;
+            --shadow: 0 8px 28px rgba(26, 62, 52, 0.07);
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* NAVIGATION */
+        .navbar {
+            min-height: 76px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 7%;
+            gap: 16px;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 3px 16px rgba(20, 50, 40, 0.04);
+        }
+
+        .logo {
+            font-size: 29px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: #455651;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 14px;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logout-button {
+            background: #176b5b;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 11px 18px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .logout-button:hover {
+            background: #105347;
+        }
+
+        @media (max-width: 600px) {
+            .nav-actions {
+                gap: 5px;
+            }
+
+            .logout-button {
+                padding: 9px 11px;
+                font-size: 12px;
+            }
+        }
+
+
+        /* PAGE LAYOUT */
+        .page {
+            width: 86%;
+            max-width: 1250px;
+            margin: 42px auto 75px;
+        }
+
+        .page-title {
+            margin-bottom: 28px;
+        }
+
+        .page-title h1 {
+            font-size: clamp(29px, 3vw, 36px);
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .page-title p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* ACCOUNT INFORMATION */
+        .account-card {
+            position: relative;
+            background: linear-gradient(120deg, #ffffff 0%, #f0f8f4 100%);
+            padding: 27px 30px;
+            border: 1px solid #dcebe3;
+            border-left: 5px solid var(--primary);
+            border-radius: 14px;
+            margin-bottom: 38px;
+            box-shadow: 0 4px 16px rgba(26, 62, 52, 0.04);
+        }
+
+        .account-card h3 {
+            font-size: 17px;
+            font-weight: 750;
+            margin-bottom: 7px;
+        }
+
+        #userEmail {
+            color: var(--muted);
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        /* PRODUCTS */
+        .products-title {
+            font-size: 25px;
+            letter-spacing: -0.5px;
+            font-weight: 800;
+            margin-bottom: 23px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(25, 55, 45, 0.035);
+            transition: transform 0.22s, box-shadow 0.22s,
+            border-color 0.22s;
+            min-width: 0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: #cbded5;
+            box-shadow: 0 12px 28px rgba(25, 55, 45, 0.10);
+        }
+
+        .product-image {
+            height: 225px;
+            width: 100%;
+            background: #f0f4f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: var(--muted);
+            font-size: 14px;
+            border-bottom: 1px solid #edf1ef;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            padding: 10px;
+            transition: transform 0.25s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.035);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 18px;
+            font-weight: 750;
+            line-height: 1.45;
+            margin-bottom: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .product-price {
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .product-category,
+        .product-location,
+        .product-description {
+            color: #65756f;
+            font-size: 13px;
+            margin-bottom: 9px;
+            overflow-wrap: anywhere;
+        }
+
+        .product-description {
+            line-height: 1.65;
+        }
+
+        /* EDIT AND DELETE BUTTONS */
+        .button-row {
+            display: flex;
+            gap: 11px;
+            margin-top: 20px;
+        }
+
+        .action-button {
+            flex: 1;
+            min-height: 42px;
+            padding: 10px 8px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 750;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .action-button:hover {
+            transform: translateY(-1px);
+        }
+
+        .edit-button {
+            background: var(--primary-light);
+            border-color: #d4eae0;
+            color: var(--primary-dark);
+        }
+
+        .edit-button:hover {
+            background: #d8eee5;
+        }
+
+        .delete-button {
+            background: #fff0ef;
+            border-color: #f7d8d5;
+            color: #b42318;
+        }
+
+        .delete-button:hover {
+            background: #ffe0dd;
+        }
+
+        /* EMPTY STATE */
+        .no-products {
+            grid-column: 1 / -1;
+            background: white;
+            padding: 45px 25px;
+            text-align: center;
+            border: 1px dashed #cfddd6;
+            border-radius: 14px;
+            color: var(--muted);
+        }
+
+        .no-products h3 {
+            color: var(--text);
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        /* STATUS MESSAGES */
+        #message {
+            display: none;
+            padding: 13px 16px;
+            margin-bottom: 22px;
+            border-radius: 9px;
+            font-size: 14px;
+            border: 1px solid transparent;
+        }
+
+        /* EDIT MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 35, 29, 0.60);
+            backdrop-filter: blur(3px);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.20);
+            margin: auto;
+        }
+
+        .modal-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .modal-heading h2 {
+            font-size: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .close-button {
+            border: none;
+            background: #f1f5f3;
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            font-size: 25px;
+            cursor: pointer;
+            color: #65756f;
+        }
+
+        .close-button:hover {
+            background: #e5ece9;
+            color: var(--text);
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 750;
+            margin-bottom: 7px;
+            color: #344740;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #d5e0da;
+            border-radius: 9px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            color: var(--text);
+            background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(23, 107, 91, 0.10);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .save-button {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            font-weight: 750;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background 0.2s;
+        }
+
+        .save-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .save-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* KEYBOARD ACCESSIBILITY */
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid #9bd8c5;
+            outline-offset: 3px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .page {
+                width: 90%;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 14px 5%;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .back-link {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .page {
+                width: 91%;
+                margin-top: 30px;
+            }
+
+            .page-title h1 {
+                font-size: 29px;
+            }
+
+            .page-title p {
+                font-size: 13px;
+            }
+
+            .account-card {
+                padding: 22px;
+                margin-bottom: 30px;
+            }
+
+            .products-title {
+                font-size: 22px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .product-image {
+                height: 240px;
+            }
+
+            .product-info {
+                padding: 18px;
+            }
+
+            .modal {
+                padding: 12px;
+            }
+
+            .modal-content {
+                padding: 22px 18px;
+            }
+
+            .modal-heading h2 {
+                font-size: 21px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="home.html" class="logo">ReMarket</a>
+
+    <div class="nav-actions">
+        <a href="home.html" class="back-link">← Back to Home</a>
+        <button type="button" class="logout-button" onclick="logout()">
+            Logout
+        </button>
+    </div>
+</nav>
+
+<main class="page">
+
+    <div class="page-title">
+        <h1>My Account</h1>
+        <p>Manage your ReMarket account and your listed products.</p>
+    </div>
+
+    <div class="account-card">
+        <h3>Account</h3>
+        <p id="userEmail">Loading account...</p>
+    </div>
+
+    <h2 class="products-title">My Products</h2>
+
+    <div id="message" role="status"></div>
+
+    <div id="productGrid" class="product-grid">
+        <div class="no-products">Loading your products...</div>
+    </div>
+
+</main>
+
+<!-- Edit Product Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+
+        <div class="modal-heading">
+            <h2>Edit Product</h2>
+            <button type="button" class="close-button"
+                    onclick="closeEditModal()" aria-label="Close">
+                &times;
+            </button>
+        </div>
+
+        <form id="editForm">
+
+            <div class="form-group">
+                <label for="editName">Product Name</label>
+                <input type="text" id="editName" required maxlength="150">
+            </div>
+
+            <div class="form-group">
+                <label for="editCategory">Category</label>
+                <input type="text" id="editCategory" required maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="editPrice">Price (₹)</label>
+                <input type="number" id="editPrice" required min="0.01"
+                       step="0.01">
+            </div>
+
+            <div class="form-group">
+                <label for="editLocation">Location</label>
+                <input type="text" id="editLocation" required maxlength="150">
+            </div>
+
+            <div class="form-group">
+                <label for="editDescription">Description</label>
+                <textarea id="editDescription" maxlength="1000"></textarea>
+            </div>
+
+            <button type="submit" class="save-button" id="saveButton">
+                Save Changes
+            </button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    const userEmail = localStorage.getItem("userEmail");
+
+    const emailElement = document.getElementById("userEmail");
+    const productGrid = document.getElementById("productGrid");
+    const messageElement = document.getElementById("message");
+    const editModal = document.getElementById("editModal");
+    const editForm = document.getElementById("editForm");
+    const saveButton = document.getElementById("saveButton");
+
+    let currentProducts = [];
+    let editingProductId = null;
+
+    if (!userEmail) {
+        emailElement.textContent = "No logged-in user found.";
+        productGrid.innerHTML =
+            '<div class="no-products">Please login first.</div>';
+    } else {
+        emailElement.textContent = userEmail;
+        loadMyProducts();
+    }
+
+    function showMessage(text, success) {
+        messageElement.textContent = text;
+        messageElement.style.display = "block";
+        messageElement.style.background =
+            success ? "#dcfce7" : "#fee2e2";
+        messageElement.style.color =
+            success ? "#166534" : "#991b1b";
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    async function loadMyProducts() {
+        productGrid.innerHTML =
+            '<div class="no-products">Loading your products...</div>';
+
+        try {
+            const response = await fetch(
+                "/api/products/seller/" + encodeURIComponent(userEmail)
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to load products.");
+            }
+
+            currentProducts = await response.json();
+            console.log("MY PRODUCTS:", currentProducts);
+            renderProducts();
+
+        } catch (error) {
+            productGrid.innerHTML =
+                '<div class="no-products">' +
+                'Unable to load your products. Please refresh the page.' +
+                '</div>';
+        }
+    }
+
+    function renderProducts() {
+        productGrid.innerHTML = "";
+
+        if (!currentProducts || currentProducts.length === 0) {
+            productGrid.innerHTML =
+                '<div class="no-products">' +
+                '<h3>No products listed yet</h3>' +
+                '<p style="margin-top: 8px;">' +
+                'Products you post will appear here.' +
+                '</p></div>';
+            return;
+        }
+
+        currentProducts.forEach(function(product) {
+            const card = document.createElement("article");
+            card.className = "product-card";
+
+            const image = document.createElement("div");
+            image.className = "product-image";
+            if (product.imageName && product.imageName.trim() !== "") {
+                const img = document.createElement("img");
+
+                const imagePath = product.imageName.trim();
+
+                img.src = new URL(imagePath, window.location.origin).href;
+                img.alt = product.productName || "Product image";
+
+                img.onerror = function() {
+                    console.error("Product image failed to load:", img.src);
+                    image.innerHTML = "";
+                    image.textContent = "Image unavailable";
+                };
+
+                image.appendChild(img);
+            } else {
+                image.textContent = "No image available";
+            }
+            const info = document.createElement("div");
+            info.className = "product-info";
+
+            const name = document.createElement("h3");
+            name.textContent = product.productName || "Untitled Product";
+
+            const price = document.createElement("div");
+            price.className = "product-price";
+            price.textContent =
+                "₹" + Number(product.price).toLocaleString("en-IN");
+
+            const category = document.createElement("div");
+            category.className = "product-category";
+            category.textContent =
+                "Category: " + (product.category || "—");
+
+            const location = document.createElement("div");
+            location.className = "product-location";
+            location.textContent =
+                "Location: " + (product.location || "—");
+
+            const description = document.createElement("p");
+            description.className = "product-description";
+            description.textContent = product.description || "";
+
+            const buttons = document.createElement("div");
+            buttons.className = "button-row";
+
+            const editButton = document.createElement("button");
+            editButton.type = "button";
+            editButton.className = "action-button edit-button";
+            editButton.textContent = "Edit";
+
+            editButton.addEventListener("click", function() {
+                openEditModal(product.id);
+            });
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "action-button delete-button";
+            deleteButton.textContent = "Delete";
+
+            deleteButton.addEventListener("click", function() {
+                deleteProduct(product.id);
+            });
+
+            buttons.append(editButton, deleteButton);
+            info.append(
+                name, price, category, location, description, buttons
+            );
+            card.append(image, info);
+            productGrid.appendChild(card);
+        });
+    }
+
+    function openEditModal(productId) {
+        const product = currentProducts.find(function(item) {
+            return String(item.id) === String(productId);
+        });
+
+        if (!product) {
+            showMessage("Product not found.", false);
+            return;
+        }
+
+        editingProductId = product.id;
+
+        document.getElementById("editName").value =
+            product.productName || "";
+
+        document.getElementById("editCategory").value =
+            product.category || "";
+
+        document.getElementById("editPrice").value =
+            product.price ?? "";
+
+        document.getElementById("editLocation").value =
+            product.location || "";
+
+        document.getElementById("editDescription").value =
+            product.description || "";
+
+        editModal.style.display = "flex";
+    }
+
+    function closeEditModal() {
+        editModal.style.display = "none";
+        editingProductId = null;
+        editForm.reset();
+    }
+
+    editModal.addEventListener("click", function(event) {
+        if (event.target === editModal) {
+            closeEditModal();
+        }
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeEditModal();
+        }
+    });
+
+    // Update a product
+    editForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        if (editingProductId === null || !userEmail) {
+            showMessage("Please log in before editing a product.", false);
+            return;
+        }
+
+        const updatedProduct = {
+            productName: document.getElementById("editName").value.trim(),
+            category: document.getElementById("editCategory").value.trim(),
+            price: Number(document.getElementById("editPrice").value),
+            location: document.getElementById("editLocation").value.trim(),
+            description: document.getElementById("editDescription").value.trim()
+        };
+
+        if (
+            !updatedProduct.productName ||
+            !updatedProduct.category ||
+            !updatedProduct.location ||
+            !Number.isFinite(updatedProduct.price) ||
+            updatedProduct.price <= 0
+        ) {
+            showMessage(
+                "Please enter valid product details and a price greater than zero.",
+                false
+            );
+            return;
+        }
+
+        saveButton.disabled = true;
+        saveButton.textContent = "Saving...";
+
+        try {
+            const response = await fetch(
+                "/api/products/" + encodeURIComponent(editingProductId),
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-User-Email": userEmail
+                    },
+                    body: JSON.stringify(updatedProduct)
+                }
+            );
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(
+                    errorText || "Could not update the product."
+                );
+            }
+
+            closeEditModal();
+            await loadMyProducts();
+            showMessage("Product updated successfully!", true);
+
+        } catch (error) {
+            showMessage(
+                error.message || "Unable to update the product.",
+                false
+            );
+        } finally {
+            saveButton.disabled = false;
+            saveButton.textContent = "Save Changes";
+        }
+    });
+
+    // Delete a product
+    async function deleteProduct(productId) {
+        if (!userEmail) {
+            showMessage("Please log in before deleting a product.", false);
+            return;
+        }
+
+        const product = currentProducts.find(function(item) {
+            return String(item.id) === String(productId);
+        });
+
+        if (!product) {
+            showMessage("Product not found.", false);
+            return;
+        }
+
+        const confirmed = window.confirm(
+            'Are you sure you want to delete "' +
+            product.productName +
+            '"? This action cannot be undone.'
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                "/api/products/" + encodeURIComponent(productId),
+                {
+                    method: "DELETE",
+                    headers: {
+                        "X-User-Email": userEmail
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(
+                    errorText || "Could not delete the product."
+                );
+            }
+
+            await loadMyProducts();
+            showMessage("Product deleted successfully!", true);
+
+        } catch (error) {
+            showMessage(
+                error.message || "Unable to delete the product.",
+                false
+            );
+        }
+    }
+
+    function logout() {
+        const confirmed = window.confirm("Are you sure you want to logout?");
+
+        if (!confirmed) {
+            return;
+        }
+
+        localStorage.removeItem("userEmail");
+        window.location.href = "login.html";
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ReMarket - Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #edf7ef, #f7faf7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 950px;
+            max-width: 100%;
+            min-height: 560px;
+            background: #ffffff;
+            border: 1px solid #e3ece5;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 18px 50px rgba(24, 70, 43, 0.12);
+        }
+
+        /* LEFT SIDE */
+
+        .left-section {
+            width: 45%;
+            background: linear-gradient(145deg, #176b39, #229653);
+            color: #ffffff;
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+        }
+
+        .logo span {
+            color: #c8f3d5;
+        }
+
+        .left-section h1 {
+            font-size: 36px;
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+
+        .left-section p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #e3f7e9;
+            margin-bottom: 25px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 14px 0;
+            font-size: 14px;
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 34px;
+            height: 34px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* RIGHT SIDE */
+
+        .right-section {
+            width: 55%;
+            padding: 45px 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-title {
+            font-size: 29px;
+            color: #173c29;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 21px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #263b2e;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+            min-height: 48px;
+            padding: 13px 14px;
+            border: 1px solid #d7e2d9;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #f9fbf9;
+            color: #1f2937;
+        }
+
+        input::placeholder {
+            color: #9ca3af;
+        }
+
+        input:focus {
+            border-color: #239653;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(35, 150, 83, 0.12);
+        }
+
+        /* PASSWORD VISIBILITY */
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 50px;
+        }
+
+        .eye-button {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            font-size: 19px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .eye-button:hover {
+            opacity: 0.7;
+        }
+
+        /* ERROR MESSAGE */
+
+        .error-message {
+            display: none;
+            margin-top: 8px;
+            color: #b42318;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        /* LOGIN BUTTON */
+
+        .login-button {
+            width: 100%;
+            min-height: 49px;
+            padding: 14px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 10px;
+            background: #19864b;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 13px rgba(25, 134, 75, 0.16);
+        }
+
+        .login-button:hover {
+            background: #146c3c;
+            transform: translateY(-1px);
+            box-shadow: 0 7px 18px rgba(25, 134, 75, 0.22);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        /* REGISTER LINK */
+
+        .register-text {
+            text-align: center;
+            margin-top: 22px;
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .register-text a {
+            color: #16834a;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 750px) {
+            body {
+                padding: 15px;
+                align-items: flex-start;
+            }
+
+            .container {
+                flex-direction: column;
+                border-radius: 16px;
+            }
+
+            .left-section {
+                width: 100%;
+                padding: 30px;
+            }
+
+            .left-section h1 {
+                font-size: 28px;
+            }
+
+            .left-section p {
+                margin-bottom: 10px;
+            }
+
+            .right-section {
+                width: 100%;
+                padding: 32px 30px;
+            }
+
+            .feature {
+                display: none;
+            }
+
+            .form-title {
+                font-size: 26px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .left-section {
+                padding: 24px;
+            }
+
+            .right-section {
+                padding: 26px 20px;
+            }
+
+            .logo {
+                font-size: 29px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-section">
+
+        <div class="logo">
+            Re<span>Market</span>
+        </div>
+
+        <h1>
+            Welcome<br>
+            Back.
+        </h1>
+
+        <p>
+            Login to ReMarket and continue your
+            journey of buying and selling pre-owned products.
+        </p>
+
+        <div class="feature">
+            <div class="feature-icon">✓</div>
+            <span>Buy and sell products easily</span>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">✓</div>
+            <span>Connect with nearby buyers</span>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">✓</div>
+            <span>Give products a second life</span>
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right-section">
+
+        <h2 class="form-title">
+            Welcome back!
+        </h2>
+
+        <p class="form-subtitle">
+            Login to your ReMarket account.
+        </p>
+
+
+        <form id="loginForm">
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email address"
+                        required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="password-box">
+
+                    <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required
+                    >
+
+                    <button
+                            type="button"
+                            id="eyeButton"
+                            class="eye-button"
+                    >
+                        👁️
+                    </button>
+
+                </div>
+
+                <div id="loginError" class="error-message">
+                    Invalid email or password.
+                </div>
+
+            </div>
+
+
+            <!-- LOGIN -->
+
+            <button
+                    type="submit"
+                    class="login-button"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <div class="register-text">
+            Don't have an account?
+            <a href="register.html">Create Account</a>
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+    const passwordInput = document.getElementById("password");
+    const eyeButton = document.getElementById("eyeButton");
+    const loginForm = document.getElementById("loginForm");
+    const loginError = document.getElementById("loginError");
+
+
+    /* EYE BUTTON */
+
+    eyeButton.addEventListener("click", function () {
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+
+    });
+
+
+    /* LOGIN */
+
+    loginForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        loginError.style.display = "none";
+
+        const email = document.getElementById("email").value.trim();
+        const password = passwordInput.value;
+
+
+        try {
+
+            const response = await fetch("/api/users/login", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+
+            });
+
+
+            if (response.ok) {
+
+                localStorage.setItem("userEmail", email);
+
+                alert("Login successful!");
+
+                window.location.href = "home.html";
+
+            } else {
+
+                const errorMessage = await response.text();
+
+                loginError.textContent = errorMessage;
+                loginError.style.display = "block";
+
+            }
+
+
+        } catch (error) {
+
+            loginError.textContent = "Unable to connect to the server.";
+            loginError.style.display = "block";
+
+        }
+
+    });
+
+</script>
+
+</body>
+
+</html>

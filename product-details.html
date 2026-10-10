@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReMarket - Product Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f8f6;
+            color: #1f2937;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        nav {
+            min-height: 74px;
+            padding: 14px 7%;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 14px rgba(20, 83, 45, 0.07);
+            border-bottom: 1px solid #e5eee7;
+        }
+
+        .logo {
+            color: #16834a;
+            font-size: 29px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 15px;
+            border: 1px solid #dce8df;
+            border-radius: 9px;
+            transition: 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #16834a;
+            background: #edf8f0;
+            border-color: #16834a;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1080px;
+            margin: 42px auto 60px;
+        }
+
+        .details-card {
+            background: #ffffff;
+            border: 1px solid #e3ece5;
+            border-radius: 18px;
+            padding: 32px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 36px;
+            box-shadow: 0 12px 35px rgba(24, 70, 43, 0.07);
+        }
+
+        .product-image {
+            min-height: 350px;
+            align-self: start;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #edf7ef, #f8fbf8);
+            border: 1px solid #e4eee5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            display: block;
+            width: 100%;
+            height: 350px;
+            object-fit: contain;
+            padding: 12px;
+        }
+
+        .product-info {
+            min-width: 0;
+            padding: 6px 0;
+        }
+
+        .category {
+            display: inline-block;
+            background: #e7f6eb;
+            color: #176b39;
+            border: 1px solid #d4ebda;
+            border-radius: 20px;
+            padding: 6px 13px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 17px;
+        }
+
+        h1 {
+            color: #173c29;
+            font-size: 31px;
+            line-height: 1.3;
+            letter-spacing: -0.6px;
+            margin-bottom: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .price {
+            font-size: 31px;
+            line-height: 1.4;
+            font-weight: 800;
+            color: #19864b;
+            margin-bottom: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .location {
+            color: #68766c;
+            font-size: 14px;
+            margin-bottom: 26px;
+            overflow-wrap: anywhere;
+        }
+
+        .section-title {
+            color: #263b2e;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #59645c;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            margin-bottom: 25px;
+        }
+
+        .seller-card {
+            background: #f7faf7;
+            border: 1px solid #e0eae2;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .seller-detail {
+            margin-top: 11px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+            color: #4b594e;
+            font-size: 14px;
+        }
+
+        .seller-email {
+            color: #16834a;
+        }
+
+        .contact-button {
+            display: block;
+            width: 100%;
+            min-height: 49px;
+            margin-top: 18px;
+            padding: 13px 16px;
+            background: #19864b;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 12px rgba(25, 134, 75, 0.16);
+            transition: 0.2s ease;
+        }
+
+        .contact-button:hover {
+            background: #146c3c;
+            box-shadow: 0 7px 16px rgba(25, 134, 75, 0.22);
+            transform: translateY(-1px);
+        }
+
+        .message {
+            background: #ffffff;
+            border: 1px solid #e3ece5;
+            padding: 38px 25px;
+            text-align: center;
+            border-radius: 14px;
+            color: #647067;
+            box-shadow: 0 8px 25px rgba(24, 70, 43, 0.05);
+        }
+
+        .message a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #16834a;
+            font-weight: 700;
+        }
+
+        .message a:hover {
+            color: #146c3c;
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                padding: 13px 5%;
+            }
+
+            .logo {
+                font-size: 25px;
+            }
+
+            .back-link {
+                font-size: 13px;
+                padding: 8px 10px;
+            }
+
+            main {
+                width: 92%;
+                margin: 25px auto 40px;
+            }
+
+            .details-card {
+                grid-template-columns: minmax(0, 1fr);
+                padding: 21px;
+                gap: 22px;
+                border-radius: 14px;
+            }
+
+            .product-image {
+                min-height: 240px;
+            }
+
+            .product-image img {
+                height: 240px;
+            }
+
+            .product-info {
+                padding: 0;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .price {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .logo {
+                font-size: 22px;
+            }
+
+            .details-card {
+                padding: 15px;
+            }
+
+            .seller-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a href="home.html" class="logo">ReMarket</a>
+    <a href="home.html" class="back-link">← Back to Home</a>
+</nav>
+
+<main id="pageContent">
+    <div class="message">Loading product details...</div>
+</main>
+
+<script>
+    const pageContent = document.getElementById("pageContent");
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    function showMessage(text) {
+        pageContent.replaceChildren();
+
+        const box = document.createElement("div");
+        box.className = "message";
+
+        const paragraph = document.createElement("p");
+        paragraph.textContent = text;
+
+        const link = document.createElement("a");
+        link.href = "home.html";
+        link.textContent = "Return to Home";
+
+        box.append(paragraph, link);
+        pageContent.appendChild(box);
+    }
+
+    async function loadProductDetails() {
+        if (!productId || !/^\d+$/.test(productId)) {
+            showMessage("Invalid product ID.");
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                "/api/products/" + encodeURIComponent(productId)
+            );
+
+            if (response.status === 404) {
+                showMessage("This product could not be found.");
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error("Unable to load product.");
+            }
+
+            const product = await response.json();
+
+            pageContent.replaceChildren();
+
+            const card = document.createElement("div");
+            card.className = "details-card";
+
+            // Product image
+            const image = document.createElement("div");
+            image.className = "product-image";
+
+            if (product.imageName) {
+                const img = document.createElement("img");
+                img.src = product.imageName;
+                img.alt = product.productName || "Product image";
+
+                img.onerror = function() {
+                    image.replaceChildren();
+                    image.textContent = "🛍️";
+                };
+
+                image.appendChild(img);
+            } else {
+                image.textContent = "🛍️";
+                image.setAttribute("aria-label", "Product illustration");
+            }
+
+            // Product information
+            const info = document.createElement("div");
+            info.className = "product-info";
+
+            const category = document.createElement("span");
+            category.className = "category";
+            category.textContent = product.category || "Other";
+
+            const name = document.createElement("h1");
+            name.textContent = product.productName || "Unnamed product";
+
+            const price = document.createElement("div");
+            price.className = "price";
+            const amount = Number(product.price);
+            price.textContent = Number.isFinite(amount)
+                ? "₹" + amount.toLocaleString("en-IN")
+                : "Price not available";
+
+            const location = document.createElement("p");
+            location.className = "location";
+            location.textContent =
+                "📍 " + (product.location || "Location not provided");
+
+            const descriptionTitle = document.createElement("h2");
+            descriptionTitle.className = "section-title";
+            descriptionTitle.textContent = "Product Description";
+
+            const description = document.createElement("p");
+            description.className = "description";
+            description.textContent =
+                product.description || "No description provided by the seller.";
+
+            // Seller information
+            const sellerCard = document.createElement("div");
+            sellerCard.className = "seller-card";
+
+            const sellerTitle = document.createElement("h2");
+            sellerTitle.className = "section-title";
+            sellerTitle.textContent = "Seller Information";
+
+            const sellerName = document.createElement("p");
+            sellerName.className = "seller-detail";
+            sellerName.textContent =
+                "Name: " + (product.sellerName || "Not available");
+
+            const sellerEmail = document.createElement("p");
+            sellerEmail.className = "seller-detail seller-email";
+            sellerEmail.textContent =
+                "Email: " + (product.sellerEmail || "Not available");
+
+            const sellerPhone = document.createElement("p");
+            sellerPhone.className = "seller-detail";
+            sellerPhone.textContent =
+                "Phone: " + (product.sellerPhone || "Not available");
+
+            sellerCard.append(
+                sellerTitle,
+                sellerName,
+                sellerEmail,
+                sellerPhone
+            );
+
+            info.append(
+                category,
+                name,
+                price,
+                location,
+                descriptionTitle,
+                description,
+                sellerCard
+            );
+
+            // Contact seller through email
+            if (product.sellerEmail) {
+                const contactButton = document.createElement("button");
+                contactButton.type = "button";
+                contactButton.className = "contact-button";
+                contactButton.textContent = "Contact Seller";
+
+                contactButton.addEventListener("click", function() {
+                    const email = product.sellerEmail;
+
+                    if (
+                        email &&
+                        !email.includes("\n") &&
+                        !email.includes("\r")
+                    ) {
+                        window.location.href =
+                            "mailto:" + encodeURIComponent(email);
+                    }
+                });
+
+                info.appendChild(contactButton);
+            }
+
+            card.append(image, info);
+            pageContent.appendChild(card);
+
+        } catch (error) {
+            console.error("Product details error:", error);
+            showMessage("Unable to load product details. Please try again.");
+        }
+    }
+
+    loadProductDetails();
+</script>
+
+</body>
+</html>
